@@ -317,6 +317,14 @@ prompt-kb/
 
 ---
 
+---
+
+## License
+
+**License**: MIT
+
+See [LICENSE](LICENSE) for details.
+
 ## Version History
 
 | 版本 | 日期 | 变更内容 |
