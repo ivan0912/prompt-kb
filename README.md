@@ -1,522 +1,356 @@
-# Prompt-KB 🚀
+# Prompt Engineering 知识库 (Prompt-KB)
 
-**A structured prompt engineering knowledge base for building reusable AI workflows across text, image, video, and agent-based tasks.**
-
-**Prompt-KB** 不是简单的提示词合集，而是一套用于创建、验收、维护和复用 AI 提示词资产的结构化知识库。它覆盖文本提示词、图像提示词、视频提示词、平台适配和多步骤 Agent 工作流，帮助你把零散提示词变成可复用、可测试、可迭代的 AI 工作流资产。
-
-> **Current Release**: Prompt-KB v1.1
-> **Status**: ✅ Released / Ready for daily use
-> **Maintainer**: KB-Admin
-> **Last Updated**: 2026-05-28
-> **Language**: 中文为主，部分英文说明
-> **Use Case**: Prompt Engineering learning, reusable templates, AI workflow design, prompt evaluation, and knowledge base maintenance
+> **版本**: v2.20.0
+> **创建日期**: 2026-05-14
+> **最近更新**: 2026-05-28（Prompt-KB v1.1 正式发布）
+> **维护者**: KB-Admin
+> **用途**: AI 提示词学习、复用、复盘的长期知识积累系统
 
 ---
 
-## ✨ Why Prompt-KB?
+## 知识库目标
 
-Most prompt repositories only collect prompts.
+构建一个**以 DAIR.AI Prompt Engineering Guide 为主线**的提示词知识库，
+覆盖文本/图像/视频三大媒介，支持单 Agent 和多 Agent (OpenClaw) 执行场景，
+实现「学→练→复用→复盘」的闭环。
 
-Prompt-KB focuses on the full lifecycle of prompt assets:
+> **关于 OpenClaw**：OpenClaw 在本知识库中指代多 Agent 工作流执行环境，
+> 可迁移理解为 Claude Code、OpenClaw 或其他 Agent 工作流工具。
+> 本知识库的工作流规范和案例不绑定特定平台，可按需迁移到任意支持多步骤任务编排的 Agent 环境。
 
-```text
-需求 → 模板 → 验收 → 小修 → 案例 → 平台适配 → 测试 → 发布 → 复盘
-```
-
-它适合你在以下场景中使用：
-
-* 想系统学习 Prompt Engineering；
-* 想把模糊需求转成可执行提示词；
-* 想生成图像 / 视频提示词；
-* 想把同一个提示词适配到不同平台；
-* 想构建可维护的 AI 工作流；
-* 想让 Claude Code / OpenClaw / Cursor / ChatGPT 执行复杂多步骤任务；
-* 想把提示词沉淀成团队或个人知识资产。
+**当前聚焦**: Prompt-KB v1.1 已发布 / 进入使用阶段
 
 ---
 
-## 🧭 5-Minute Quick Start
+## 5-Minute Quick Start
 
-| I want to...                                  | Start here                                                                                                         |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Understand the whole project                  | [QUICKSTART.md](QUICKSTART.md)                                                                                     |
-| See release status                            | [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md)                                                                     |
-| Check final acceptance result                 | [FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md)                                                 |
-| Transfer this KB to another Agent environment | [HANDOFF_PROMPT-KB_v1.1.md](HANDOFF_PROMPT-KB_v1.1.md)                                                             |
-| Write better text prompts                     | [T-TEXT-001](02-text-prompts/templates/fuzzy-request-to-plan-pipeline.md)                                          |
-| Generate image prompts                        | [Image Prompt Quick Reference](03-image-prompts/image-prompt-quick-reference.md)                                   |
-| Generate video prompts                        | [Video Prompt Quick Reference](04-video-prompts/video-prompt-quick-reference.md)                                   |
-| Adapt image prompts to platforms              | [T-IMG-002 Image Platform Adaptation Template](03-image-prompts/templates/image-platform-adaptation-template.md)   |
-| Adapt video prompts to platforms              | [T-VIDEO-002 Video Platform Adaptation Template](04-video-prompts/templates/video-platform-adaptation-template.md) |
-| Run complex multi-step Agent tasks            | [OpenClaw Workflow Quick Reference](05-openclaw-workflows/openclaw-workflow-quick-reference.md)                    |
-| Browse examples and tests                     | [Case Studies](06-case-studies/README.md)                                                                          |
+如果你是第一次接触 Prompt-KB，按以下顺序阅读：
+
+1. **README.md**（本文件）— 了解知识库全貌
+2. **[QUICKSTART.md](QUICKSTART.md)** — 按需求快速定位文件
+3. **[RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md)** — 了解 v1.1 发布内容
+4. **[FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md)** — 了解验收结论
+5. **[HANDOFF_PROMPT-KB_v1.1.md](HANDOFF_PROMPT-KB_v1.1.md)** — 交接说明，用于迁移到新环境
 
 ---
 
-## 🧪 Examples
+## 总体进度
 
-### Example 1: Vague request → action plan
+| 阶段 | 模块 | 状态 | 说明 |
+|------|------|------|------|
+| Phase 1 | Prompt Engineering 基础学习 | ✅ 已完成 | DAIR.AI / OpenAI / Anthropic 学习与校准 |
+| Phase 2 | 配置规范层建设 | ✅ 已完成 | T-CONFIG-001 至 T-CONFIG-006 全部完成 |
+| Phase 3 | 图像提示词模块 | ✅ 已完成阶段性闭环 | 7 个交付物；五层闭环；2 个平台适配测试通过 |
+| Phase 4 | 视频提示词模块 | ✅ 已完成阶段性闭环 | 5 个交付物（A级）；四条子闭环成立 |
+| Phase 5 | OpenClaw 多 Agent 工作流 | ✅ 已完成阶段性闭环 | 3/3 交付物（A级）；20/20 能力项覆盖 |
 
-**Input**
-
-```text
-我想一个月内提高英语口语，但不知道怎么安排。
-```
-
-**Prompt-KB helps produce**
-
-```text
-结构化学习计划
-阶段目标
-每日任务
-复盘方式
-风险提醒
-待确认问题
-```
-
-Recommended file:
-
-```text
-02-text-prompts/templates/fuzzy-request-to-plan-pipeline.md
-```
+> **发布说明**: [RELEASE_NOTES_v1.0.md](RELEASE_NOTES_v1.0.md) · [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md)
+>
+> **验收报告**: [FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md)
+>
+> **交接说明**: [HANDOFF_PROMPT-KB_v1.1.md](HANDOFF_PROMPT-KB_v1.1.md)
 
 ---
 
-### Example 2: Image request → image prompt
+## What is Included
 
-**Input**
+本知识库包含以下模块：
 
-```text
-生成一张符合今天汕头天气和潮汕地区风格街景的图片。
-```
-
-**Prompt-KB helps produce**
-
-```text
-中文图像提示词
-英文图像提示词
-负面提示词
-3 个变体
-平台适配建议
-风险与注意事项
-```
-
-Recommended file:
-
-```text
-03-image-prompts/image-prompt-quick-reference.md
-```
+| 模块 | 目录 | 核心交付物 | 状态 |
+|------|------|----------|------|
+| 文本提示词基础 | `01-fundamentals/` | DAIR.AI 全系列 + 7 个高级技术卡片 | ✅ 已完成 |
+| 文本提示词模板 | `02-text-prompts/` | T-TEXT-001 模糊需求转计划 Pipeline | ✅ v0.4 已验收 |
+| 知识库配置规范 | `_config/` | T-CONFIG-001 至 T-CONFIG-006 | ✅ 全部正式版 |
+| 图像提示词模块 | `03-image-prompts/` | T-IMG-001 + 速查卡 + T-IMG-002 + 2 案例 + 2 测试 | ✅ 已完成阶段性闭环 |
+| 视频提示词模块 | `04-video-prompts/` | T-VIDEO-001 + 速查卡 + T-VIDEO-002 + 1 案例 + 1 测试 | ✅ 已完成阶段性闭环 |
+| OpenClaw 工作流 | `05-openclaw-workflows/` | T-OPENCLAW-001 + 速查卡 + 1 案例 | ✅ 已完成阶段性闭环 |
+| 案例库 | `06-case-studies/` | 10 个已完成案例 / 测试记录 | ✅ 已登记 |
+| 学习资源 | `07-learning/` | 资源索引 + 学习计划 + 校准文档 | ✅ 已完成 |
 
 ---
 
-### Example 3: Complex task → Agent workflow
+## Repository Structure
 
-**Input**
-
-```text
-帮我创建一个新模板，并完成验收、小修和导航登记。
 ```
-
-**Prompt-KB helps produce**
-
-```text
-任务类型判断
-复杂度判断
-单 Agent / 多 Agent 判断
-执行流程
-保护文件清单
-验收报告
-下一步建议
-```
-
-Recommended file:
-
-```text
-05-openclaw-workflows/openclaw-workflow-quick-reference.md
-```
-
----
-
-## 📦 What is included?
-
-| Area                | Content                                                                          |
-| ------------------- | -------------------------------------------------------------------------------- |
-| 🧠 Fundamentals     | Prompt Engineering basics, DAIR.AI learning notes, advanced prompting techniques |
-| 📝 Text Prompts     | Reusable text prompt templates, especially vague request → plan pipeline         |
-| 🎨 Image Prompts    | Image prompt foundation, quick reference, platform adaptation, image cases       |
-| 🎬 Video Prompts    | Video prompt foundation, quick reference, platform adaptation, video cases       |
-| 🤖 Agent Workflows  | OpenClaw / Claude Code / Agent workflow rules, multi-step task execution         |
-| 🧪 Case Studies     | Text, image, video, and workflow examples with validation records                |
-| ✅ Quality Checks    | Acceptance reports, checklists, release notes, handoff guide                     |
-| 🔁 Maintenance Flow | Create → review → refine → register → test → release                             |
-
----
-
-## 🗂 Repository Structure
-
-```text
 prompt-kb/
-├── README.md
-├── QUICKSTART.md
-├── RELEASE_NOTES_v1.1.md
-├── FINAL_ACCEPTANCE_REPORT_v1.1.md
-├── HANDOFF_PROMPT-KB_v1.1.md
-├── _config/
-├── 01-fundamentals/
-├── 02-text-prompts/
-├── 03-image-prompts/
-├── 04-video-prompts/
-├── 05-openclaw-workflows/
-├── 06-case-studies/
-└── 07-learning/
-```
-
-| Directory                | Purpose                                                           |
-| ------------------------ | ----------------------------------------------------------------- |
-| `_config/`               | Core configuration and prompt template standards                  |
-| `01-fundamentals/`       | Prompt Engineering learning notes and advanced techniques         |
-| `02-text-prompts/`       | Text prompt templates                                             |
-| `03-image-prompts/`      | Image prompt foundation, quick reference, and platform adaptation |
-| `04-video-prompts/`      | Video prompt foundation, quick reference, and platform adaptation |
-| `05-openclaw-workflows/` | Agent workflow rules and OpenClaw-style task orchestration        |
-| `06-case-studies/`       | Case studies and test records                                     |
-| `07-learning/`           | Learning resources, plans, and calibration records                |
-
----
-
-## ✅ Current Status
-
-Prompt-KB v1.1 has been released and is ready for daily use.
-
-| Phase   | Module                           | Status      | Summary                                                            |
-| ------- | -------------------------------- | ----------- | ------------------------------------------------------------------ |
-| Phase 1 | Prompt Engineering Fundamentals  | ✅ Completed | DAIR.AI / OpenAI / Anthropic learning and calibration completed    |
-| Phase 2 | Configuration Standards          | ✅ Completed | T-CONFIG-001 to T-CONFIG-006 completed                             |
-| Phase 3 | Image Prompt Module              | ✅ Completed | Foundation → quick reference → cases → platform adaptation → tests |
-| Phase 4 | Video Prompt Module              | ✅ Completed | Foundation → quick reference → case → platform adaptation → test   |
-| Phase 5 | OpenClaw / Agent Workflow Module | ✅ Completed | Foundation → quick reference → workflow case → registration        |
-
-Release documents:
-
-* [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md)
-* [FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md)
-* [HANDOFF_PROMPT-KB_v1.1.md](HANDOFF_PROMPT-KB_v1.1.md)
-
----
-
-## 🧩 Core Standards
-
-### Configuration Standards
-
-| ID           | Name               | File                                                                                   | Status   |
-| ------------ | ------------------ | -------------------------------------------------------------------------------------- | -------- |
-| T-CONFIG-001 | Prompt-KB 通用模板结构规范 | [_config/prompt-template-style-guide.md](_config/prompt-template-style-guide.md)       | ✅ Stable |
-| T-CONFIG-002 | Few-shot 示例规范      | [_config/few-shot-example-guide.md](_config/few-shot-example-guide.md)                 | ✅ Stable |
-| T-CONFIG-003 | 模型类型与提示策略判断规范      | [_config/model-strategy-selection-guide.md](_config/model-strategy-selection-guide.md) | ✅ Stable |
-| T-CONFIG-004 | Few-shot 适用条件判断规范  | [_config/few-shot-usage-decision-guide.md](_config/few-shot-usage-decision-guide.md)   | ✅ Stable |
-| T-CONFIG-005 | 格式描述与占位符规范         | [_config/format-and-placeholder-guide.md](_config/format-and-placeholder-guide.md)     | ✅ Stable |
-| T-CONFIG-006 | 长上下文输入规范           | [_config/long-context-input-guide.md](_config/long-context-input-guide.md)             | ✅ Stable |
-
----
-
-### Text Prompt Standard
-
-| ID         | Name                | File                                                                                             | Status   |
-| ---------- | ------------------- | ------------------------------------------------------------------------------------------------ | -------- |
-| T-TEXT-001 | 模糊需求转计划类任务 Pipeline | [fuzzy-request-to-plan-pipeline.md](02-text-prompts/templates/fuzzy-request-to-plan-pipeline.md) | ✅ Stable |
-
----
-
-### Image Prompt Standards
-
-| ID           | Name      | File                                                                                                      | Status   |
-| ------------ | --------- | --------------------------------------------------------------------------------------------------------- | -------- |
-| T-IMG-001    | 图像提示词基础规范 | [image-prompt-foundation.md](03-image-prompts/image-prompt-foundation.md)                                 | ✅ Stable |
-| T-IMG-001 QR | 图像提示词速查卡  | [image-prompt-quick-reference.md](03-image-prompts/image-prompt-quick-reference.md)                       | ✅ Stable |
-| T-IMG-002    | 图像平台适配模板  | [image-platform-adaptation-template.md](03-image-prompts/templates/image-platform-adaptation-template.md) | ✅ Stable |
-
----
-
-### Video Prompt Standards
-
-| ID             | Name      | File                                                                                                      | Status   |
-| -------------- | --------- | --------------------------------------------------------------------------------------------------------- | -------- |
-| T-VIDEO-001    | 视频提示词基础规范 | [video-prompt-foundation.md](04-video-prompts/video-prompt-foundation.md)                                 | ✅ Stable |
-| T-VIDEO-001 QR | 视频提示词速查卡  | [video-prompt-quick-reference.md](04-video-prompts/video-prompt-quick-reference.md)                       | ✅ Stable |
-| T-VIDEO-002    | 视频平台适配模板  | [video-platform-adaptation-template.md](04-video-prompts/templates/video-platform-adaptation-template.md) | ✅ Stable |
-
----
-
-### Agent Workflow Standards
-
-| ID                | Name                     | File                                                                                               | Status   |
-| ----------------- | ------------------------ | -------------------------------------------------------------------------------------------------- | -------- |
-| T-OPENCLAW-001    | OpenClaw 多 Agent 工作流基础规范 | [openclaw-workflow-foundation.md](05-openclaw-workflows/openclaw-workflow-foundation.md)           | ✅ Stable |
-| T-OPENCLAW-001 QR | OpenClaw 工作流速查卡          | [openclaw-workflow-quick-reference.md](05-openclaw-workflows/openclaw-workflow-quick-reference.md) | ✅ Stable |
-
-> **About OpenClaw**
-> In this repository, OpenClaw refers to a multi-agent workflow execution environment. The workflow rules can also be adapted to Claude Code, Cursor, ChatGPT, or other Agent-based tools.
-
----
-
-## 🧪 Case Studies and Tests
-
-| ID                 | Category   | File                                                                                                       | Purpose                                               |
-| ------------------ | ---------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| CS-001             | Text       | [oral-request-to-learning-plan.md](06-case-studies/oral-request-to-learning-plan.md)                       | Learning plan prototype case                          |
-| CS-002             | Text       | [t-text-001-xiaohongshu-content-plan-test.md](06-case-studies/t-text-001-xiaohongshu-content-plan-test.md) | Xiaohongshu content plan validation                   |
-| CS-IMG-001         | Image      | [cs-img-001-prompt-kb-cover-image.md](06-case-studies/cs-img-001-prompt-kb-cover-image.md)                 | Prompt-KB cover image case                            |
-| CS-IMG-002         | Image      | [cs-img-002-product-hero-image.md](06-case-studies/cs-img-002-product-hero-image.md)                       | Product hero image case                               |
-| CS-IMG-003         | Image      | [cs-img-003-fishing-gathering.md](06-case-studies/cs-img-003-fishing-gathering.md)                         | Desensitized multi-person scene image case            |
-| TEST-IMG-002-001   | Image Test | [cs-img-001-platform-adaptation-test.md](06-case-studies/cs-img-001-platform-adaptation-test.md)           | Image platform adaptation test                        |
-| TEST-IMG-002-002   | Image Test | [cs-img-002-platform-adaptation-test.md](06-case-studies/cs-img-002-platform-adaptation-test.md)           | Product image platform adaptation test                |
-| CS-VIDEO-001       | Video      | [cs-video-001-product-showcase-video.md](06-case-studies/cs-video-001-product-showcase-video.md)           | Product showcase video case                           |
-| TEST-VIDEO-002-001 | Video Test | [cs-video-001-platform-adaptation-test.md](06-case-studies/cs-video-001-platform-adaptation-test.md)       | Video platform adaptation test                        |
-| CS-OPENCLAW-001    | Workflow   | [cs-openclaw-001-module-delivery-workflow.md](06-case-studies/cs-openclaw-001-module-delivery-workflow.md) | Module creation → review → registration workflow case |
-
-See full index:
-
-```text
-06-case-studies/README.md
+├── README.md                          # 本文件：知识库总览
+├── QUICKSTART.md                      # 快速启动指南
+├── RELEASE_NOTES_v1.0.md              # v1.0 发布说明
+├── RELEASE_NOTES_v1.1.md              # v1.1 发布说明
+├── FINAL_ACCEPTANCE_REPORT_v1.1.md    # v1.1 验收报告
+├── HANDOFF_PROMPT-KB_v1.1.md          # 交接说明
+│
+├── _config/                           # 知识库配置与规范（6 份元规范）
+│   ├── README.md
+│   ├── prompt-template-style-guide.md       # T-CONFIG-001
+│   ├── few-shot-example-guide.md            # T-CONFIG-002
+│   ├── model-strategy-selection-guide.md    # T-CONFIG-003
+│   ├── few-shot-usage-decision-guide.md     # T-CONFIG-004
+│   ├── format-and-placeholder-guide.md      # T-CONFIG-005
+│   ├── long-context-input-guide.md          # T-CONFIG-006
+│   └── resource-processing.md
+│
+├── 01-fundamentals/                   # 文本提示词基础
+│   ├── README.md
+│   ├── dair-ai-introduction.md
+│   ├── dair-ai-basic-prompting.md
+│   ├── dair-ai-advanced-prompting.md
+│   ├── openai-prompt-guidance-calibration.md
+│   ├── anthropic-structured-prompting-calibration.md
+│   ├── advanced-techniques/           # 7 个高级技术卡片
+│   └── _templates/
+│
+├── 02-text-prompts/                   # 文本提示词模板
+│   ├── README.md
+│   └── templates/
+│       └── fuzzy-request-to-plan-pipeline.md  # T-TEXT-001
+│
+├── 03-image-prompts/                  # 图像提示词模块
+│   ├── README.md
+│   ├── image-prompt-foundation.md           # T-IMG-001
+│   ├── image-prompt-quick-reference.md      # T-IMG-001 速查卡
+│   ├── templates/
+│   │   └── image-platform-adaptation-template.md  # T-IMG-002
+│   └── _templates/
+│
+├── 04-video-prompts/                  # 视频提示词模块
+│   ├── README.md
+│   ├── video-prompt-foundation.md           # T-VIDEO-001
+│   ├── video-prompt-quick-reference.md      # T-VIDEO-001 速查卡
+│   ├── templates/
+│   │   └── video-platform-adaptation-template.md  # T-VIDEO-002
+│   └── _templates/
+│
+├── 05-openclaw-workflows/             # OpenClaw 工作流模块
+│   ├── README.md
+│   ├── openclaw-workflow-foundation.md      # T-OPENCLAW-001
+│   └── openclaw-workflow-quick-reference.md # T-OPENCLAW-001 速查卡
+│
+├── 06-case-studies/                   # 案例库（10 个）
+│   ├── README.md
+│   ├── cs-img-001-prompt-kb-cover-image.md
+│   ├── cs-img-002-product-hero-image.md
+│   ├── cs-img-003-fishing-gathering.md
+│   ├── cs-video-001-product-showcase-video.md
+│   ├── cs-openclaw-001-module-delivery-workflow.md
+│   ├── cs-img-001-platform-adaptation-test.md
+│   ├── cs-img-002-platform-adaptation-test.md
+│   ├── cs-video-001-platform-adaptation-test.md
+│   ├── oral-request-to-learning-plan.md
+│   └── t-text-001-xiaohongshu-content-plan-test.md
+│
+└── 07-learning/                       # 学习资源与校准笔记
+    ├── README.md
+    ├── _plans/
+    └── _resources/
 ```
 
 ---
 
-## 🛠 Platform Adaptation
+## Current Status
 
-Prompt-KB includes reusable platform adaptation templates for both image and video generation.
-
-### Image Platforms
-
-Supported by T-IMG-002:
-
-* ChatGPT Images
-* 豆包
-* Midjourney
-* Stable Diffusion
-* Flux
-* Hugging Face
-
-### Video Platforms
-
-Supported by T-VIDEO-002:
-
-* Runway
-* Pika
-* Kling / 可灵
-* Luma
-* Sora
-* 豆包 / 即梦
-* Other video generation models
-
-> Platform capabilities and parameters change over time. Prompt-KB avoids hardcoding real-time platform parameters and recommends checking current official documentation when needed.
+| 项目 | 状态 |
+|------|------|
+| 发布状态 | ✅ Prompt-KB v1.1 已发布 |
+| 总体验收 | ✅ A 级通过 |
+| 隐私脱敏 | ✅ 已完成 |
+| 当前阶段 | 使用阶段 + 按需扩展 |
 
 ---
 
-## 🔁 Prompt-KB Workflow
+## Core Standards
 
-Prompt-KB follows a repeatable maintenance workflow:
+### 文本提示词规范
 
-```text
-Create → Review → Refine → Re-check → Register → Test → Release
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| T-TEXT-001 | 模糊需求转计划 Pipeline | `02-text-prompts/templates/fuzzy-request-to-plan-pipeline.md` | ✅ v0.4 |
+
+### 图像提示词规范
+
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| T-IMG-001 | 图像提示词基础规范 | `03-image-prompts/image-prompt-foundation.md` | ✅ v0.2 |
+| T-IMG-001 QR | 图像提示词速查卡 | `03-image-prompts/image-prompt-quick-reference.md` | ✅ v0.2 |
+| T-IMG-002 | 图像平台适配模板 | `03-image-prompts/templates/image-platform-adaptation-template.md` | ✅ v0.1 |
+
+### 视频提示词规范
+
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| T-VIDEO-001 | 视频提示词基础规范 | `04-video-prompts/video-prompt-foundation.md` | ✅ v0.1（A级） |
+| T-VIDEO-001 QR | 视频提示词速查卡 | `04-video-prompts/video-prompt-quick-reference.md` | ✅ v0.2（A级） |
+| T-VIDEO-002 | 视频平台适配模板 | `04-video-prompts/templates/video-platform-adaptation-template.md` | ✅ v0.1（A级） |
+
+### OpenClaw 工作流规范
+
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| T-OPENCLAW-001 | 多 Agent 工作流基础规范 | `05-openclaw-workflows/openclaw-workflow-foundation.md` | ✅ v0.1（A级） |
+| T-OPENCLAW-001 QR | 工作流速查卡 | `05-openclaw-workflows/openclaw-workflow-quick-reference.md` | ✅ v0.1（A级） |
+
+### 配置规范（_config/）
+
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| T-CONFIG-001 | 通用模板结构规范 | `_config/prompt-template-style-guide.md` | ✅ v0.2 |
+| T-CONFIG-002 | Few-shot 示例规范 | `_config/few-shot-example-guide.md` | ✅ v0.2 |
+| T-CONFIG-003 | 模型策略判断规范 | `_config/model-strategy-selection-guide.md` | ✅ v0.2 |
+| T-CONFIG-004 | Few-shot 适用条件规范 | `_config/few-shot-usage-decision-guide.md` | ✅ v0.1 |
+| T-CONFIG-005 | 格式描述与占位符规范 | `_config/format-and-placeholder-guide.md` | ✅ v0.1 |
+| T-CONFIG-006 | 长上下文输入规范 | `_config/long-context-input-guide.md` | ✅ v0.1 |
+
+---
+
+## Case Studies and Tests
+
+### 文本案例
+
+| 编号 | 名称 | 文件 | 场景 | 状态 |
+|------|------|------|------|------|
+| CS-001 | 学习计划原型 | `06-case-studies/oral-request-to-learning-plan.md` | 学习计划 | 来源案例 |
+| CS-002 | 小红书内容计划 | `06-case-studies/t-text-001-xiaohongshu-content-plan-test.md` | 内容创作 | ✅ 93.3% A级 |
+
+### 图像案例与测试
+
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| CS-IMG-001 | 知识库封面图 | `06-case-studies/cs-img-001-prompt-kb-cover-image.md` | ✅ v0.2 |
+| CS-IMG-002 | 产品主视觉图 | `06-case-studies/cs-img-002-product-hero-image.md` | ✅ v0.1 |
+| CS-IMG-003 | 多人物户外场景图 | `06-case-studies/cs-img-003-fishing-gathering.md` | ✅ 已脱敏 |
+| TEST-IMG-002-001 | CS-IMG-001 平台适配测试 | `06-case-studies/cs-img-001-platform-adaptation-test.md` | ✅ 12/12 |
+| TEST-IMG-002-002 | CS-IMG-002 平台适配测试 | `06-case-studies/cs-img-002-platform-adaptation-test.md` | ✅ 15/15 |
+
+### 视频案例与测试
+
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| CS-VIDEO-001 | 产品展示视频 | `06-case-studies/cs-video-001-product-showcase-video.md` | ✅ A级 20/20 |
+| TEST-VIDEO-002-001 | 视频平台适配测试 | `06-case-studies/cs-video-001-platform-adaptation-test.md` | ✅ 20/20 |
+
+### 工作流案例
+
+| 编号 | 名称 | 文件 | 状态 |
+|------|------|------|------|
+| CS-OPENCLAW-001 | 模块产物交付工作流 | `06-case-studies/cs-openclaw-001-module-delivery-workflow.md` | ✅ A级 110/110 |
+
+---
+
+## Release and Acceptance
+
+| 文档 | 说明 |
+|------|------|
+| [RELEASE_NOTES_v1.0.md](RELEASE_NOTES_v1.0.md) | v1.0 基础可用版发布说明 |
+| [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md) | v1.1 完整能力扩展版发布说明 |
+| [FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md) | v1.1 总体验收报告（A 级通过） |
+| [HANDOFF_PROMPT-KB_v1.1.md](HANDOFF_PROMPT-KB_v1.1.md) | 交接说明，用于迁移到新 Agent 环境 |
+
+---
+
+## 按场景速查
+
+### 文本提示词
+
+- 「想做一个 XX 计划」→ [T-TEXT-001](02-text-prompts/templates/fuzzy-request-to-plan-pipeline.md)
+- 「从零开始学提示词」→ [Introduction](01-fundamentals/dair-ai-introduction.md)
+- 「学会 Zero-Shot / Few-Shot」→ [Basic Prompting](01-fundamentals/dair-ai-basic-prompting.md)
+- 「学习高级技术」→ [Advanced Prompting](01-fundamentals/dair-ai-advanced-prompting.md)
+
+### 图像提示词
+
+- 「想生成图片」→ 日常：[T-IMG-001 速查卡](03-image-prompts/image-prompt-quick-reference.md)；完整：[T-IMG-001](03-image-prompts/image-prompt-foundation.md)
+- 「想看图像实战样例」→ [CS-IMG-001](06-case-studies/cs-img-001-prompt-kb-cover-image.md)（封面图）
+- 「想看产品图样例」→ [CS-IMG-002](06-case-studies/cs-img-002-product-hero-image.md)（产品图）
+- 「想看多人物场景样例」→ [CS-IMG-003](06-case-studies/cs-img-003-fishing-gathering.md)（户外场景）
+- 「想适配不同图像平台」→ [T-IMG-002](03-image-prompts/templates/image-platform-adaptation-template.md)
+
+### 视频提示词
+
+- 「想生成视频」→ 日常：[T-VIDEO-001 速查卡](04-video-prompts/video-prompt-quick-reference.md)；完整：[T-VIDEO-001](04-video-prompts/video-prompt-foundation.md)
+- 「想看视频实战样例」→ [CS-VIDEO-001](06-case-studies/cs-video-001-product-showcase-video.md)
+- 「想适配不同视频平台」→ [T-VIDEO-002](04-video-prompts/templates/video-platform-adaptation-template.md)
+
+### OpenClaw 工作流
+
+- 「想执行复杂多步骤任务」→ 日常：[工作流速查卡](05-openclaw-workflows/openclaw-workflow-quick-reference.md)；完整：[T-OPENCLAW-001](05-openclaw-workflows/openclaw-workflow-foundation.md)
+- 「想看工作流实战样例」→ [CS-OPENCLAW-001](06-case-studies/cs-openclaw-001-module-delivery-workflow.md)
+
+---
+
+## 推荐学习路径
+
+```
+新手路径（推荐）：
+  ① Introduction        → 了解"提示词能做什么"
+  ② Basic Prompting     → 学会 Zero-Shot / Few-Shot
+  ③ CoT                 → 掌握思维链（最实用）
+  ④ Prompt Chaining     → 学会分步拆解复杂任务
+  ⑤ ReAct               → 理解 Agent 循环模式
+
+进阶路径（可选）：
+  ⑥ Self-Consistency    → 多数投票提升准确率
+  ⑦ Generated Knowledge → 外部知识增强推理
+  ⑧ Tree of Thoughts    → 分支探索复杂决策
+  ⑨ PAL                 → 代码辅助推理
 ```
 
-For complex tasks, use:
+---
 
-```text
-05-openclaw-workflows/openclaw-workflow-quick-reference.md
-```
+## Roadmap
 
-Typical workflow abilities include:
+| 阶段 | 目标 | 状态 |
+|------|------|------|
+| Phase 3 | 图像提示词模块 | ✅ 已完成阶段性闭环 |
+| Phase 4 | 视频提示词模块 | ✅ 已完成阶段性闭环 |
+| Phase 5 | OpenClaw 工作流 | ✅ 已完成阶段性闭环 |
+| v1.1 发布 | 总体验收与发布 | ✅ 已发布 |
 
-* Task type identification
-* Complexity classification
-* Single Agent / Multi Agent decision
-* Execution planning
-* Quality review
-* Small-scope refinement
-* Navigation registration
-* Failure and rollback handling
-* Final report generation
-* Next-step recommendation
+### 后续按需扩展
+
+1. 日常使用 Prompt-KB
+2. 根据真实使用反馈小修具体模块
+3. 按需扩展多 Agent 协作模板
+4. 按需补充第二个视频案例
+5. 按需补充参考图 / 首帧 / 末帧案例
+6. 按需补充真实生成结果复盘
+7. 按需扩展音频 / 字幕 / 口播规范
 
 ---
 
-## 🧭 Recommended Learning Path
+## Version History
 
-### Beginner Path
-
-```text
-1. Introduction
-2. Basic Prompting
-3. Chain-of-Thought
-4. Prompt Chaining
-5. ReAct
-```
-
-Recommended files:
-
-* [dair-ai-introduction.md](01-fundamentals/dair-ai-introduction.md)
-* [dair-ai-basic-prompting.md](01-fundamentals/dair-ai-basic-prompting.md)
-* [cot.md](01-fundamentals/advanced-techniques/cot.md)
-* [prompt-chaining.md](01-fundamentals/advanced-techniques/prompt-chaining.md)
-* [react.md](01-fundamentals/advanced-techniques/react.md)
-
----
-
-### Advanced Path
-
-```text
-1. Self-Consistency
-2. Generated Knowledge
-3. Tree of Thoughts
-4. Program-Aided Language Models
-5. Agent Workflow Design
-```
-
-Recommended files:
-
-* [self-consistency.md](01-fundamentals/advanced-techniques/self-consistency.md)
-* [generated-knowledge.md](01-fundamentals/advanced-techniques/generated-knowledge.md)
-* [tree-of-thoughts.md](01-fundamentals/advanced-techniques/tree-of-thoughts.md)
-* [program-aided-language-models.md](01-fundamentals/advanced-techniques/program-aided-language-models.md)
-* [openclaw-workflow-quick-reference.md](05-openclaw-workflows/openclaw-workflow-quick-reference.md)
+| 版本 | 日期 | 变更内容 |
+|------|------|----------|
+| v2.20.0 | 2026-05-28 | v1.1 正式发布；Phase 1-5 全部完成；验收报告归档 |
+| v2.19.0 | 2026-05-27 | v1.1 发布整理；创建 RELEASE_NOTES_v1.1.md |
+| v2.18.0 | 2026-05-27 | Phase 5 OpenClaw 工作流模块收尾 |
+| v2.17.0 | 2026-05-27 | 登记 CS-OPENCLAW-001 v0.1（A级 110/110） |
+| v2.16.0 | 2026-05-27 | 登记 OpenClaw 工作流速查卡 v0.1（A级 120/120） |
+| v2.15.0 | 2026-05-27 | 登记 T-OPENCLAW-001 v0.1（A级 120/120） |
+| v2.14.0 | 2026-05-27 | Phase 4 收尾 + Phase 5 启动 |
+| v2.13.0 | 2026-05-27 | 登记 TEST-VIDEO-002-001 视频平台适配测试 |
+| v2.12.0 | 2026-05-26 | 登记 T-VIDEO-002 v0.1（A级 110/110） |
+| v2.11.0 | 2026-05-26 | 登记 CS-VIDEO-001 v0.2（A级 20/20） |
+| v2.9.0 | 2026-05-26 | 登记 T-VIDEO-001 v0.1（A级 91/100） |
+| v2.8.0 | 2026-05-25 | Phase 3 图像提示词模块收尾 |
+| v2.6.0 | 2026-05-25 | 登记 CS-IMG-002 v0.1 产品图案例 |
+| v2.5.0 | 2026-05-25 | 登记 TEST-IMG-002-001 平台适配测试 |
+| v2.4.0 | 2026-05-25 | 登记 T-IMG-002 v0.1 平台适配模板 |
+| v2.3.0 | 2026-05-25 | 登记 CS-IMG-001 v0.2 封面图案例 |
+| v2.2.0 | 2026-05-25 | 登记 T-IMG-001 速查卡 v0.2 |
+| v2.1.0 | 2026-05-19 | 登记 T-IMG-001 v0.2 图像基础规范 |
+| v2.0.0 | 2026-05-19 | v1.0 可用版发布 |
+| v1.9.0 | 2026-05-19 | 登记 T-CONFIG-006 长上下文输入规范 |
+| v1.8.0 | 2026-05-16 | 登记 T-CONFIG-005 格式描述规范 |
+| v1.7.0 | 2026-05-16 | 登记 T-CONFIG-004 Few-shot 适用条件规范 |
+| v1.6.0 | 2026-05-16 | 登记 T-CONFIG-003 模型策略判断规范 |
+| v1.5.0 | 2026-05-16 | 登记 T-CONFIG-002 Few-shot 示例规范 |
+| v1.4.0 | 2026-05-14 | 登记 T-CONFIG-001 模板结构规范 |
+| v1.3.0 | 2026-05-14 | 登记 CS-002 小红书内容计划案例 |
+| v1.2.0 | 2026-05-14 | 登记 T-TEXT-001 模糊需求转计划模板 |
+| v1.1.0 | 2026-05-14 | Phase 1 中期验收后导航更新 |
+| v1.0.0 | 2026-05-14 | 初始创建 |
 
 ---
 
-## 👥 Who is this for?
-
-Prompt-KB is useful for:
-
-* Prompt Engineering learners;
-* AI content creators;
-* Claude Code / Cursor / ChatGPT users;
-* Agent workflow builders;
-* Image and video generation users;
-* Knowledge base maintainers;
-* Teams that want reusable AI workflows.
-
-It may not be ideal for:
-
-* Users who only want a few copy-paste prompts;
-* Users who do not want to read structured documentation;
-* Users looking for private business data or platform-specific real-time parameters.
-
----
-
-## 📤 Handoff and Migration
-
-If you want to move this knowledge base to another Agent environment, start here:
-
-```text
-HANDOFF_PROMPT-KB_v1.1.md
-```
-
-Recommended receiving order:
-
-```text
-1. README.md
-2. QUICKSTART.md
-3. RELEASE_NOTES_v1.1.md
-4. FINAL_ACCEPTANCE_REPORT_v1.1.md
-5. HANDOFF_PROMPT-KB_v1.1.md
-6. 05-openclaw-workflows/openclaw-workflow-quick-reference.md
-7. Then read task-specific modules as needed
-```
-
----
-
-## 📌 Current Limitations and Future Extensions
-
-Current limitations do not block v1.1 usage.
-
-Future extensions may include:
-
-* More text prompt templates;
-* More video cases;
-* More OpenClaw workflow cases;
-* Multi-Agent collaboration template;
-* Real generation result reviews;
-* Reference image / first-frame / last-frame cases;
-* Audio / subtitle / voice-over prompt module;
-* GitHub-specific packaging improvements;
-* More English documentation.
-
----
-
-## 📜 Release and Acceptance
-
-| Document                                                           | Purpose                                  |
-| ------------------------------------------------------------------ | ---------------------------------------- |
-| [RELEASE_NOTES_v1.0.md](RELEASE_NOTES_v1.0.md)                     | v1.0 base release notes                  |
-| [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md)                     | v1.1 full capability release notes       |
-| [FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md) | Final acceptance report                  |
-| [HANDOFF_PROMPT-KB_v1.1.md](HANDOFF_PROMPT-KB_v1.1.md)             | Handoff guide for new Agent environments |
-
----
-
-## ⭐ If this project helps you
-
-If Prompt-KB helps you organize, evaluate, or reuse AI prompts, feel free to star the repository.
-
-A star helps more people discover structured prompt engineering workflows.
-
----
-
-## 🪪 License
-
-License is not specified yet.
-
-Recommended options:
-
-* MIT License: simple and open for broad reuse;
-* CC BY 4.0: suitable for knowledge documents with attribution;
-* CC BY-NC 4.0: suitable if you want to restrict commercial use.
-
-Before making this repository public, it is recommended to add a `LICENSE` file.
-
----
-
-## 🛣 Roadmap
-
-| Area                       | Status        |
-| -------------------------- | ------------- |
-| Text prompt foundation     | ✅ Completed   |
-| Config standards           | ✅ Completed   |
-| Image prompt module        | ✅ Completed   |
-| Video prompt module        | ✅ Completed   |
-| Agent workflow module      | ✅ Completed   |
-| Release notes              | ✅ Completed   |
-| Final acceptance report    | ✅ Completed   |
-| Handoff guide              | ✅ Completed   |
-| GitHub README optimization | ✅ In progress |
-| License                    | ⏳ Recommended |
-| CONTRIBUTING.md            | ⏳ Optional    |
-| SECURITY.md                | ⏳ Optional    |
-| More examples              | ⏳ Optional    |
-
----
-
-## 🧾 Version History
-
-This README keeps a short version summary. For release-level details, see:
-
-* [RELEASE_NOTES_v1.0.md](RELEASE_NOTES_v1.0.md)
-* [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md)
-* [FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md)
-
-| Version             | Date       | Summary                                                                                                                                 |
-| ------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| v2.21.0             | 2026-06-02 | Optimized README for GitHub public release, added external-facing introduction, quick start, examples, module map, and sharing guidance |
-| v2.20.0             | 2026-05-28 | Prompt-KB v1.1 officially released; Phase 1-5 completed; project entered daily use and on-demand extension stage                        |
-| v2.19.0             | 2026-05-27 | Created v1.1 release notes and finalized release preparation                                                                            |
-| v2.18.0             | 2026-05-27 | Completed Phase 5 stage closure and entered final acceptance / release preparation                                                      |
-| v2.17.0 and earlier | 2026-05    | See release notes and repository history for full details                                                                               |
-
----
-
-## Maintainer
-
-Maintained by **KB-Admin**.
-
-Prompt-KB v1.1 is released and ready for daily use.
+*本知识库由 KB-Admin 维护，OpenClaw 辅助建立，持续迭代中。当前版本：Prompt-KB v1.1 已发布。*
