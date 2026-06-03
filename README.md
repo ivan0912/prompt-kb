@@ -13,12 +13,12 @@
 ## 知识库目标
 
 构建一个**以 DAIR.AI Prompt Engineering Guide 为主线**的提示词知识库，
-覆盖文本/图像/视频三大媒介，支持单 Agent 和多 Agent (OpenClaw) 执行场景，
+覆盖文本/图像/视频三大媒介，支持单 Agent 和多 Agent 工作流执行场景，
 实现「学→练→复用→复盘」的闭环。
 
-> **关于 OpenClaw**：OpenClaw 在本知识库中指代多 Agent 工作流执行环境，
-> 可迁移理解为 Claude Code、OpenClaw 或其他 Agent 工作流工具。
-> 本知识库的工作流规范和案例不绑定特定平台，可按需迁移到任意支持多步骤任务编排的 Agent 环境。
+> **关于 Agent Workflow**：本知识库的工作流模块（历史命名 OpenClaw）指代通用多 Agent 工作流执行环境，
+> 可应用于 Claude Code、Codex、Cursor、ChatGPT、OpenClaw 或其他支持多步骤任务编排的 Agent 工具。
+> T-OPENCLAW-001 等编号为历史命名，不代表平台绑定。
 
 **当前聚焦**: Prompt-KB v1.1 已发布 / 进入使用阶段
 
@@ -44,13 +44,30 @@
 | Phase 2 | 配置规范层建设 | ✅ 已完成 | T-CONFIG-001 至 T-CONFIG-006 全部完成 |
 | Phase 3 | 图像提示词模块 | ✅ 已完成阶段性闭环 | 7 个交付物；五层闭环；2 个平台适配测试通过 |
 | Phase 4 | 视频提示词模块 | ✅ 已完成阶段性闭环 | 5 个交付物（A级）；四条子闭环成立 |
-| Phase 5 | OpenClaw 多 Agent 工作流 | ✅ 已完成阶段性闭环 | 3/3 交付物（A级）；20/20 能力项覆盖 |
+| Phase 5 | Agent Workflow / 多 Agent 工作流（OpenClaw-style） | ✅ 已完成阶段性闭环 | 3/3 交付物（A级）；20/20 能力项覆盖 |
 
 > **发布说明**: [RELEASE_NOTES_v1.0.md](RELEASE_NOTES_v1.0.md) · [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md)
 >
 > **验收报告**: [FINAL_ACCEPTANCE_REPORT_v1.1.md](FINAL_ACCEPTANCE_REPORT_v1.1.md)
 >
 > **交接说明**: [HANDOFF_PROMPT-KB_v1.1.md](HANDOFF_PROMPT-KB_v1.1.md)
+
+---
+
+## Agent Workflow Compatibility
+
+> **Note on naming**: Some files and directories use the legacy name "OpenClaw"
+> (e.g. `05-openclaw-workflows/`, `T-OPENCLAW-001`, `CS-OPENCLAW-001`).
+> These refer to an **OpenClaw-style multi-agent / multi-step workflow pattern**,
+> not a specific platform dependency.
+>
+> The workflow methods in this knowledge base are designed to be **platform-agnostic**
+> and can be applied to **Claude Code, Codex, Cursor, ChatGPT, OpenClaw**,
+> or any other Agent-based tool that supports multi-step task orchestration.
+>
+> **关于命名**：`05-openclaw-workflows/` 目录和 `T-OPENCLAW-001` 等编号沿用了早期命名，
+> 但工作流模块本身不绑定任何特定平台。不使用 OpenClaw 的用户，
+> 可以将其理解为通用 Agent Workflow / 多 Agent 工作流模块。
 
 ---
 
@@ -65,7 +82,7 @@
 | 知识库配置规范 | `_config/` | T-CONFIG-001 至 T-CONFIG-006 | ✅ 全部正式版 |
 | 图像提示词模块 | `03-image-prompts/` | T-IMG-001 + 速查卡 + T-IMG-002 + 2 案例 + 2 测试 | ✅ 已完成阶段性闭环 |
 | 视频提示词模块 | `04-video-prompts/` | T-VIDEO-001 + 速查卡 + T-VIDEO-002 + 1 案例 + 1 测试 | ✅ 已完成阶段性闭环 |
-| OpenClaw 工作流 | `05-openclaw-workflows/` | T-OPENCLAW-001 + 速查卡 + 1 案例 | ✅ 已完成阶段性闭环 |
+| Agent Workflow / 多 Agent 工作流 | `05-openclaw-workflows/` | T-OPENCLAW-001 + 速查卡 + 1 案例（历史命名：OpenClaw-style） | ✅ 已完成阶段性闭环 |
 | 案例库 | `06-case-studies/` | 10 个已完成案例 / 测试记录 | ✅ 已登记 |
 | 学习资源 | `07-learning/` | 资源索引 + 学习计划 + 校准文档 | ✅ 已完成 |
 
@@ -123,7 +140,7 @@ prompt-kb/
 │   │   └── video-platform-adaptation-template.md  # T-VIDEO-002
 │   └── _templates/
 │
-├── 05-openclaw-workflows/             # OpenClaw 工作流模块
+├── 05-openclaw-workflows/             # Agent Workflow 模块（历史命名：OpenClaw-style）
 │   ├── README.md
 │   ├── openclaw-workflow-foundation.md      # T-OPENCLAW-001
 │   └── openclaw-workflow-quick-reference.md # T-OPENCLAW-001 速查卡
@@ -184,7 +201,7 @@ prompt-kb/
 | T-VIDEO-001 QR | 视频提示词速查卡 | `04-video-prompts/video-prompt-quick-reference.md` | ✅ v0.2（A级） |
 | T-VIDEO-002 | 视频平台适配模板 | `04-video-prompts/templates/video-platform-adaptation-template.md` | ✅ v0.1（A级） |
 
-### OpenClaw 工作流规范
+### Agent Workflow / 多 Agent 工作流规范
 
 | 编号 | 名称 | 文件 | 状态 |
 |------|------|------|------|
@@ -272,9 +289,9 @@ prompt-kb/
 - 「想看视频实战样例」→ [CS-VIDEO-001](06-case-studies/cs-video-001-product-showcase-video.md)
 - 「想适配不同视频平台」→ [T-VIDEO-002](04-video-prompts/templates/video-platform-adaptation-template.md)
 
-### OpenClaw 工作流
+### Agent Workflow / 多步骤任务执行
 
-- 「想执行复杂多步骤任务」→ 日常：[工作流速查卡](05-openclaw-workflows/openclaw-workflow-quick-reference.md)；完整：[T-OPENCLAW-001](05-openclaw-workflows/openclaw-workflow-foundation.md)
+- 「想让 Claude Code / Codex / Cursor / ChatGPT / OpenClaw 执行复杂多步骤任务」→ 日常：[Agent 工作流速查卡](05-openclaw-workflows/openclaw-workflow-quick-reference.md)；完整：[T-OPENCLAW-001](05-openclaw-workflows/openclaw-workflow-foundation.md)
 - 「想看工作流实战样例」→ [CS-OPENCLAW-001](06-case-studies/cs-openclaw-001-module-delivery-workflow.md)
 
 ---
@@ -304,7 +321,7 @@ prompt-kb/
 |------|------|------|
 | Phase 3 | 图像提示词模块 | ✅ 已完成阶段性闭环 |
 | Phase 4 | 视频提示词模块 | ✅ 已完成阶段性闭环 |
-| Phase 5 | OpenClaw 工作流 | ✅ 已完成阶段性闭环 |
+| Phase 5 | Agent Workflow / 多 Agent 工作流 | ✅ 已完成阶段性闭环 |
 | v1.1 发布 | 总体验收与发布 | ✅ 已发布 |
 
 ### 后续按需扩展
