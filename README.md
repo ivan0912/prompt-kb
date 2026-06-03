@@ -1,8 +1,10 @@
 # Prompt Engineering 知识库 (Prompt-KB)
 
-> **版本**: v2.20.0
+> **项目版本**: Prompt-KB v1.1
+> **当前状态**: 已发布 / 可日常使用
+> **README 修订号**: v2.20.0
 > **创建日期**: 2026-05-14
-> **最近更新**: 2026-05-28（Prompt-KB v1.1 正式发布）
+> **最近更新**: 2026-05-28
 > **维护者**: KB-Admin
 > **用途**: AI 提示词学习、复用、复盘的长期知识积累系统
 
@@ -325,7 +327,9 @@ prompt-kb/
 
 See [LICENSE](LICENSE) for details.
 
-## Version History
+## README Revision History
+
+> 本节记录 README 与知识库索引文件的修订历史；Prompt-KB 的对外发布版本以 [RELEASE_NOTES_v1.1.md](RELEASE_NOTES_v1.1.md) 和 GitHub Release `v1.1` 为准。
 
 | 版本 | 日期 | 变更内容 |
 |------|------|----------|
